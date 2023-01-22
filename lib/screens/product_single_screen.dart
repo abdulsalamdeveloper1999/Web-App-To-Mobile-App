@@ -7,6 +7,8 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:web_app/lists/list_holders.dart';
 
 import '../reusable_widgets/text_widget.dart';
+import 'cart_screen.dart';
+import 'home_screen.dart';
 
 class ProductSingleScreen extends StatefulWidget {
   const ProductSingleScreen({Key? key}) : super(key: key);
@@ -25,110 +27,84 @@ class _ProductSingleScreenState extends State<ProductSingleScreen>
     _tabController = TabController(vsync: this, length: 4);
   }
 
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
     var sp = MediaQuery.textScaleFactorOf(context);
+    var h = MediaQuery.of(context).size.height;
 
     return SafeArea(
       child: Scaffold(
-        // key: _key,
-
+        key: _key,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          toolbarHeight: MediaQuery.of(context).size.height * 0.1,
+          toolbarHeight: MediaQuery.of(context).size.height * 0.08,
           backgroundColor: Colors.white,
           elevation: 0,
           flexibleSpace: Container(
-            width: w - 10,
-            padding: EdgeInsets.only(top: 10, right: w * 0.055),
+            // width: w - 10,
+
+            padding: const EdgeInsets.only(right: 10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
                     IconButton(
                       onPressed: () {
-                        print('object');
+                        _key.currentState!.openDrawer();
                       },
-                      icon: Icon(
-                        Icons.menu,
-                        color: Colors.black,
-                      ),
+                      icon: const Icon(Icons.menu),
                     ),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Color(0xffEF7300),
-                      ),
-                      child: MyText(
-                        'Logo!',
-                        color: Colors.white,
-                        size: 16 * sp,
-                        weight: FontWeight.bold,
-                      ),
-                    ),
+                    Image.asset('assets/images/logo.png', height: 25),
                   ],
                 ),
-                SizedBox(width: w * 0.05),
-                Expanded(
-                  child: Row(
-                    children: [
-                      MyText(
-                        'Login',
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.search_sharp,
+                      color: Colors.black,
+                    ),
+                    // SizedBox(width: 15),
+                    SizedBox(width: 10),
+                    Badge(
+                      badgeColor: Colors.black,
+                      badgeContent: MyText(
+                        '9',
+                        size: 9 * sp,
+                        color: Colors.white,
+                      ),
+                      child: const Icon(
+                        Icons.favorite_outline,
                         color: Colors.black,
-                        size: 16 * sp,
-                        weight: FontWeight.bold,
                       ),
-                      SizedBox(width: 10),
-                      MyText(
-                        'Signup',
-                        color: Colors.black,
-                        size: 16 * sp,
-                        weight: FontWeight.bold,
-                      ),
-                      Flexible(
-                        child: Icon(
-                          Icons.search_sharp,
-                          color: Colors.black,
+                    ),
+                    SizedBox(width: 10),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CartScreen(),
+                          ),
+                        );
+                      },
+                      child: Badge(
+                        badgeColor: Colors.black,
+                        badgeContent: MyText(
+                          '9',
+                          size: 9 * sp,
+                          color: Colors.white,
                         ),
+                        child: const Icon(Icons.shopping_cart_outlined,
+                            color: Colors.black),
                       ),
-                      SizedBox(width: 10),
-                      Flexible(
-                        child: Badge(
-                          badgeColor: Colors.black,
-                          badgeContent: MyText(
-                            '9',
-                            size: 12 * sp,
-                            color: Colors.white,
-                          ),
-                          child: Icon(
-                            Icons.favorite_outline,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Flexible(
-                        child: Badge(
-                          badgeColor: Colors.black,
-                          badgeContent: MyText(
-                            '9',
-                            size: 12 * sp,
-                            color: Colors.white,
-                          ),
-                          child: Icon(
-                            Icons.shopping_cart_outlined,
-                            color: Colors.black,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                )
+                    )
+                  ],
+                ),
               ],
             ),
           ),
@@ -138,15 +114,193 @@ class _ProductSingleScreenState extends State<ProductSingleScreen>
               color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 16 * sp,
+              fontFamily: 'Poppins',
             ),
             labelColor: Colors.black,
-            indicatorColor: Color(0xff0E4A99),
+            indicatorColor: const Color(0xff0E4A99),
             controller: _tabController,
             tabs: [
-              Tab(text: 'MAN'),
-              Tab(text: 'WOMEN'),
-              Tab(text: 'KIDS'),
-              Tab(text: 'ACCESSORIES'),
+              const Tab(text: 'MAN'),
+              const Tab(text: 'WOMEN'),
+              const Tab(text: 'KIDS'),
+              const Tab(text: 'ACCESSORIES'),
+            ],
+          ),
+        ),
+        drawer: Drawer(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: MyText(
+                        'Welcome Guest',
+                        size: 20 * sp,
+                        weight: FontWeight.w500,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        _key.currentState!.closeDrawer();
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        color: Colors.grey,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Divider(
+                color: Colors.grey,
+                thickness: 1,
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        MyText(
+                          'Login',
+                          size: 18 * sp,
+                          weight: FontWeight.w300,
+                        ),
+                        MyText(
+                          '/',
+                          size: 18 * sp,
+                          weight: FontWeight.w300,
+                        ),
+                        MyText(
+                          'Sign up',
+                          size: 18 * sp,
+                          weight: FontWeight.w300,
+                        ),
+                      ],
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      thickness: 1,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MyText(
+                      'MENU',
+                      size: 20 * sp,
+                      weight: FontWeight.bold,
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      thickness: 1,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 8.0),
+                      child: MyText(
+                        'Man',
+                        size: 18 * sp,
+                        weight: FontWeight.w300,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 8.0),
+                      child: MyText(
+                        'Women',
+                        size: 18 * sp,
+                        weight: FontWeight.w300,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 8.0),
+                      child: MyText(
+                        'Accessories',
+                        size: 18 * sp,
+                        weight: FontWeight.w300,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 8.0),
+                      child: MyText(
+                        'Customise products',
+                        size: 18 * sp,
+                        weight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                color: Colors.grey.withOpacity(0.2),
+                margin: EdgeInsets.only(bottom: 10),
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MyText(
+                      'PROFILE',
+                      size: 20 * sp,
+                      weight: FontWeight.bold,
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      thickness: 1,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 8.0),
+                      child: MyText(
+                        'Profile',
+                        size: 18 * sp,
+                        weight: FontWeight.w300,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 8.0),
+                      child: MyText(
+                        'Women',
+                        size: 18 * sp,
+                        weight: FontWeight.w300,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 8.0),
+                      child: MyText(
+                        'Accessories',
+                        size: 18 * sp,
+                        weight: FontWeight.w300,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 8.0),
+                      child: MyText(
+                        'Customise products',
+                        size: 18 * sp,
+                        weight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -399,17 +553,18 @@ class _SingleProductView extends StatelessWidget {
                           color: Color(0xff2B2C4A),
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
                               Icons.shopping_bag,
                               color: Colors.white,
                             ),
-                            MyText(
-                              'ADD TO CART',
-                              size: 16 * sp,
-                              weight: FontWeight.bold,
-                              color: Colors.white,
+                            Expanded(
+                              child: MyText(
+                                'ADD TO CART',
+                                size: 16 * sp,
+                                weight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
                           ],
                         ),
@@ -497,28 +652,31 @@ class _SingleProductView extends StatelessWidget {
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          MyText(
-                            'Rating and reviews',
-                            size: 20 * sp,
-                            weight: FontWeight.bold,
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(bottom: 10, top: 10),
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              border: Border.all(
-                                color: kdarkblue,
-                                width: 2,
-                              ),
+                          Expanded(
+                            child: MyText(
+                              'Rating and reviews',
+                              size: 20 * sp,
+                              weight: FontWeight.bold,
                             ),
-                            child: Center(
-                              child: MyText(
-                                'Rating and reviews',
-                                size: 20 * sp,
-                                weight: FontWeight.bold,
+                          ),
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(bottom: 10, top: 10),
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                border: Border.all(
+                                  color: kdarkblue,
+                                  width: 2,
+                                ),
+                              ),
+                              child: Center(
+                                child: MyText(
+                                  'Rating and reviews',
+                                  size: 20 * sp,
+                                  weight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
@@ -532,20 +690,22 @@ class _SingleProductView extends StatelessWidget {
                             weight: FontWeight.bold,
                           ),
                           SizedBox(width: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              MyText(
-                                'Base on',
-                                size: 18 * sp,
-                                weight: FontWeight.w400,
-                              ),
-                              MyText(
-                                '1k rating and 300 review',
-                                size: 18 * sp,
-                                weight: FontWeight.w400,
-                              ),
-                            ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                MyText(
+                                  'Base on',
+                                  size: 18 * sp,
+                                  weight: FontWeight.w400,
+                                ),
+                                MyText(
+                                  '1k rating and 300 review',
+                                  size: 18 * sp,
+                                  weight: FontWeight.w400,
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -554,10 +714,12 @@ class _SingleProductView extends StatelessWidget {
                         children: [
                           Icon(Icons.thumb_up),
                           SizedBox(width: 10),
-                          MyText(
-                            '84% customer liked this product',
-                            size: 16 * sp,
-                            weight: FontWeight.w400,
+                          Expanded(
+                            child: MyText(
+                              '84% customer liked this product',
+                              size: 16 * sp,
+                              weight: FontWeight.w400,
+                            ),
                           ),
                         ],
                       )
@@ -645,7 +807,7 @@ class _SingleProductView extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Image.asset(
-                                              '${ImagesThirteen[index]}'),
+                                              '${imagesThirteen[index]}'),
                                           SizedBox(height: 10),
                                           Row(
                                             children: [
@@ -688,7 +850,7 @@ class _SingleProductView extends StatelessWidget {
                         child: Row(
                           children: [
                             ...List.generate(
-                              ImagesTen.length,
+                              imagesTen.length,
                               (index) => Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -696,12 +858,12 @@ class _SingleProductView extends StatelessWidget {
                                   children: [
                                     SizedBox(height: 10),
                                     Image.asset(
-                                      '${ImagesTen[index]}',
+                                      '${imagesTen[index]}',
                                       height: 50,
                                     ),
                                     SizedBox(height: 10),
                                     MyText(
-                                      '${ImagesTenNames[index]}',
+                                      '${imagesTenNames[index]}',
                                       size: 20 * sp,
                                       weight: FontWeight.bold,
                                       textAlign: TextAlign.center,
@@ -709,7 +871,7 @@ class _SingleProductView extends StatelessWidget {
                                     ),
                                     SizedBox(height: 10),
                                     MyText(
-                                      '${ImagesTenDetails[index]}',
+                                      '${imagesTenDetails[index]}',
                                       textAlign: TextAlign.center,
                                       size: 18 * sp,
                                       weight: FontWeight.w400,
@@ -893,12 +1055,12 @@ class _SingleProductView extends StatelessWidget {
                             Row(
                               children: [
                                 ...List.generate(
-                                  ImagesEleven.length,
+                                  imagesEleven.length,
                                   (index) => Expanded(
                                     child: Padding(
                                       padding: EdgeInsets.all(8.0),
                                       child: Image.asset(
-                                        '${ImagesEleven[index]}',
+                                        '${imagesEleven[index]}',
                                         height: 50,
                                       ),
                                     ),
@@ -912,11 +1074,11 @@ class _SingleProductView extends StatelessWidget {
                               children: [
                                 MyText('100% SECURE PAYMENTS'),
                                 ...List.generate(
-                                  ImagesTwelves.length,
+                                  imagesTwelves.length,
                                   (index) => Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Image.asset(
-                                      '${ImagesTwelves[index]}',
+                                      '${imagesTwelves[index]}',
                                       height: 30,
                                     ),
                                   ),

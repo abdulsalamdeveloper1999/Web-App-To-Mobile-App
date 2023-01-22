@@ -12,7 +12,7 @@ List imagesOne = [
   'assets/images/free7.png',
 ];
 
-List ImagesTwo = [
+List imagesTwo = [
   'assets/images/flashSale1.jpg',
   'assets/images/flashSale2.jpg',
   'assets/images/flashSale3.jpg',
@@ -20,7 +20,7 @@ List ImagesTwo = [
   'assets/images/flashSale5.jpg',
 ];
 
-List ImagesThree = [
+List imagesThree = [
   'assets/images/popular1.png',
   'assets/images/popular2.png',
   'assets/images/popular3.png',
@@ -33,12 +33,12 @@ List ImagesThree = [
   'assets/images/popular10.png',
 ];
 
-List ImagesFour = [
+List imagesFour = [
   'assets/images/offer1.png',
   'assets/images/offer2.png',
 ];
 
-List ImagesFive = [
+List imagesFive = [
   'assets/images/sale1.png',
   'assets/images/sale2.png',
   'assets/images/sale3.png',
@@ -53,18 +53,18 @@ List ImagesFive = [
   'assets/images/sale3.png',
 ];
 
-List ImagesSix = [
+List imagesSix = [
   'assets/images/fashion1.png',
   'assets/images/fashion2.png',
 ];
-List ImagesSeven = [
+List imagesSeven = [
   'assets/images/bestseller1.png',
   'assets/images/bestseller2.png',
   'assets/images/bestseller3.png',
   'assets/images/bestseller5.png',
 ];
 
-List ImagesEight = [
+List imagesEight = [
   'assets/images/benchali.png',
   'assets/images/benchali1.png',
   'assets/images/benchali2.png',
@@ -76,35 +76,35 @@ List ImagesEight = [
   'assets/images/benchali2.png',
 ];
 
-List ImagesNine = [
+List imagesNine = [
   'assets/images/dailyDrop1.png',
   'assets/images/dailyDrop2.png',
 ];
 
-List ImagesTen = [
+List imagesTen = [
   'assets/images/easy_return.png',
   'assets/images/free-delivery.png',
   'assets/images/cod.png',
 ];
 
-List ImagesTenNames = [
+List imagesTenNames = [
   'EASY RETURN',
   'FREE DELIVERY',
   'COD AVAILABLE',
 ];
 
-List ImagesTenDetails = [
+List imagesTenDetails = [
   '30 Day\Return\nPolicy',
   'Payment\nOnline',
   '@ Rs. 49 Per\nOrder',
 ];
 
-List ImagesEleven = [
+List imagesEleven = [
   'assets/images/gplay.png',
   'assets/images/appStore.png',
 ];
 
-List ImagesTwelves = [
+List imagesTwelves = [
   'assets/images/visa.png',
   'assets/images/master.png',
   'assets/images/discover.png',
@@ -112,7 +112,7 @@ List ImagesTwelves = [
   'assets/images/paypal.png',
 ];
 
-List ImagesThirteen = [
+List imagesThirteen = [
   'assets/images/2 (1).jpg',
   'assets/images/2.jpg',
   'assets/images/3.jpg',
